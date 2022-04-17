@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <h2>to do list</h2>
+        <input type="text" placeholder="enter to do" v-model="input" />
+        <button class="addBtn" @click="handeltodo">add to do</button>
+        <br />
+        <hr />
+      </div>
+      <ul>
+        <todo-item
+          v-for=" (item,index) in todo"
+          :key="item.text"
+          :item="item"
+          :index="index"
+          @checked="item.compl=!item.compl"
+          @delete="deletetodo(index)"
+        >
+        </todo-item>
+
+        <!-- <li class="checked">first to do <button class="close">X</button></li> -->-
+      </ul>
+    </div>
+  </body>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const app = Vue.createApp({
+      data: () => ({
+        input: "",
+        todo: [
+          { text: "first todo", compl: true },
+          { text: "second todo", compl: false },
+          { text: "therd todo", compl: false },
+        ],
+      }),
+      methods: {
+        handeltodo(event) {
+          if (this.input) {
+            this.todo.push({
+              text: this.input,
+              complated: false,
+            });
+            this.input = "";
+          }
+        },
+        deletetodo(index) {
+          this.todo.splice(index, 1);
+        },
+        todocomplated() {
+          this.todo.complated = true;
+        },
+      },
+    });
+    app.component("TodoItem", {
+      template: `
+        <li
+         
+          @click="$emit('checked')"
+          :class="{checked:item.compl}"
+        >
+          {{item.text}}
+          <button class="close" @click="$emit('delete')">X</button>
+        </li>
+        `,
+      props: ["item", "index"],
+    });
+    app.mount("#app");
+  </script>
+</html>
