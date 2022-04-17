@@ -103,3 +103,8 @@ input {
 .addBtn:hover {
   background-color: #bbb;
 }
+.foot {
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+}
