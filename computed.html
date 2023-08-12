@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h4>info user</h4>
+        <span>name : {{user.name}}</span><br/>
+        <span>lastname : {{user.last}}</span>
+        <hr>
+        <p>fullname : {{fulname}}</p>
+        <hr>
+        <h4>change info</h4>
+        <br>
+
+        <ul>
+            <template v-for="(fremwork,index) in uppercase" :key="index">
+                <li>
+                    <span>{{fremwork}}</span>
+                </li>
+            </template>
+        </ul>
+        <form action="">
+            <!-- <input type="text" v-model="user.name">
+            <input type="text" v-model="user.last"> -->
+            <input type="text" name="" id="" v-model="fulname">
+        </form>
+
+
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data: () => ({
+                user: {
+                    name: 'mohammad',
+                    last: 'karimi'
+                },
+                fremworks: ['react.js', 'vue.js', 'vanila.js', 'angular.js']
+            }),
+            // computed
+            computed: {
+                fulname: {
+                    get() {
+                        return this.user.name + ' ' + this.user.last
+
+                    },
+                    set(newvalue) {
+                        let destance = newvalue.split(' ');
+                        this.user.name = destance[0];
+                        this.user.last = destance[1]
+                    }
+                },
+                uppercase() {
+                    return this.fremworks.map((x) => x.toUpperCase())
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>app : {{app}}</p>
+        <form action="">
+            app : <input type="text" v-model="app"> user name : <input type="text" v-model="user.name">
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data: () => ({
+                app: 'this is test  watcher',
+                user: {
+                    name: 'mohammad',
+                    lastname: 'alirezaei'
+                }
+            }),
+            watch: {
+                app(newvlaue, oldvalue) {
+                    console.log('new value : ', newvlaue);
+                    console.log('old value : ', oldvalue);
+
+
+                },
+                fullname(newfullname, oldfullname) {
+                    console.log('newfullname : ', newfullname);
+                    console.log('oldfullname : ', oldfullname);
+
+                }
+            },
+            computed: {
+                fullname: {
+                    get() {
+                        return this.user.name + ' ' + this.user.lastname
+                    },
+                    set(newvlaue) {
+
+                        let destance = newvlaue.split(' ');
+                        this.user.name = destance[0];
+                        this.user.lastname = destance[1]
+                    }
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

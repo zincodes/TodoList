@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <span>num : {{num}}</span>
+        <br>
+        <base-counter @inc="morenumber">
+            <p>add slot</p>
+            <span>number : {{num}}</span>
+            <template v-slot:btn-text>mohammad</template>
+        </base-counter>
+
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+                data: () => ({
+                    num: 10
+                }),
+                methods: {
+                    morenumber(num) {
+                        this.num += num
+                    }
+                }
+
+            }).component('BaseCounter', {
+                template: `
+                <div>
+                     <slot></slot>
+                    <button @click="plusnumber">
+                        <slot name="btn-text"></slot>
+                        </button>
+
+                    </div>
+                     `,
+
+                methods: {
+                    plusnumber() {
+                        this.$emit('inc', 7)
+
+                    }
+                },
+
+            })
+            .mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .vue {
+        background-color: rgb(18, 145, 85);
+    }
+    
+    .react {
+        background-color: rgb(33, 135, 167);
+    }
+    
+    .textwhite {
+        color: #fff;
+        font-size: 19px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div v-html="text"></div>
+        <!-- <p v-bind:id="id"> {{user.walk()}}</p> -->
+        <a :href="url">{{user.name}}</a>
+        <p :class="['vue','textwhite']">{{app}}</p>
+        <!-- <p :class="[ isvue ? 'vue':'react','textwhite']">this is description about {{librare}} laibrile javascript</p> -->
+        <p :class="{'vue , textwhite':isvue}">this is description about {{librare}} laibrile javascript</p>
+        <!-- 
+        <div v-for="m in mylearns" :key="m">{{m}}</div>
+        <div v-for="(item,key,index) in user" :key="index"> {{`${index} => ${key}:${item}`}}</div>
+  
+    -->
+
+        <ul>
+            <template v-for="(fremwork,index) in mylearns" :key="index">
+                <li v-if="fremwork!='react' && fremwork !='vue'">
+
+                    <span>{{`${index} : ${fremwork}`}}</span>
+                </li>
+            </template>
+        </ul>
+        <!--  -->
+        <form @submit.prevent="handelsubmit">
+            <p>{{input}}</p>
+            <!-- <input type="text" v-model="input" @keydown="[getwords,handelsubmit()]"> -->
+            <!--                    keydown.modifire -->
+            <input type="text" v-model="input" @keydown.pe="getwords">
+            <button type="submit">click me</button>
+        </form>
+
+
+
+    </div>
+    <script src="https://unpkg.com/vue@next "></script>
+    <script>
+        Vue.createApp({
+            // data: function() {
+            //     return {
+            //         app: 'this is test'
+            //     }
+            // }
+            data: () => ({
+                input: null,
+                text: '<h1>this is text </h1>',
+                mylearns: [
+                    'javascript',
+                    'react',
+                    'reactnative',
+                    'php',
+                    'vue',
+
+                ],
+                isvue: true,
+                librare: 'vue',
+                classes: ['vue', 'textwhite'],
+                url: 'http://google.com',
+                id: 'helloid',
+                app: 'this is arrow funaction',
+                alg: 25,
+                licencecar: true,
+                user: {
+                    name: 'mohammad',
+                    datanow: 2023,
+                    birtday: 1994,
+                    // walk: function() {
+                    //     return this.datanow - this.birtday
+                    // }
+                },
+
+            }),
+            // end data
+            // -------------
+            // start methods
+            // end computed
+            // -------------
+            // start methods
+            methods: {
+                handelsubmit() {
+                    // event.preventDefault();  in javascript
+                    // submit.prevent in vue
+                    console.log('this is  handelsubmit');
+
+                },
+                getwords(e) {
+                    // console.log(e);
+                    console.log(event.target.value);
+
+                }
+            },
+            // end methods
+            // ------------
+            // start components
+
+        }).mount('#app');
+    </script>
+
+</body>
+
+</html>

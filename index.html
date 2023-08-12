@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .vue {
+        background-color: #0f964c;
+        padding: 6px;
+    }
+    
+    .react {
+        background-color: #106394;
+        padding: 6px;
+    }
+    
+    .textwhite {
+        color: #fff;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <p :id="id">text : {{app}}</p>
+        <p :class="classes">text : {{app}}</p>
+        <a :href="url">text : {{app}}</a>
+
+        <p :style="styles">counter : {{conter}}</p>
+        <p :class="[isvue?'vue':'react','textwhite']">type labi : {{isvue ? 'vue.js':'react.js'}}</p>
+        <p :class="{'vue textwhite':isvue}">type labi : {{isvue ? 'vue.js':'react.js'}}</p>
+        <button @click="add(),logevent($event)">click</button>
+
+        <p :class="[isvue?'vue':'react','textwhite']" @mouseover="isvue=!isvue">type labi : {{isvue ? 'vue.js':'react.js'}}</p>
+        <form>
+            <input type="text" v-model="user.name" @keydown="handelwords">
+        </form>
+        <h4>{{text}}</h4>
+
+        <!-- object show -->
+        <p>name : {{user.name}}</p>
+
+        <P class="vue textwhite" v-if="app==='vue.js'">THIS IS VUE.JS TEMPLATE</P>
+        <P class="react textwhite " v-else-if="app==='react.js'">THIS IS REACT.JS TEMPLATE</P>
+        <P v-else>THIS IS ANGULAR.JS TEMPLATE</P>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data: () => ({
+
+                id: 'hello',
+                url: 'http://google.com',
+                classes: 'salam',
+                app: 'vue.js',
+                conter: 1,
+                isvue: true,
+                myclass: ['vue', 'textwhite'],
+                styles: {
+                    color: 'white',
+                    "background-color": 'green',
+                    padding: '6px'
+                },
+                text: null,
+                user: {
+                    name: 'mohammad alirezaei',
+                    age: 30,
+                    weight: 99,
+
+                }
+
+            }),
+            methods: {
+                add(num = 4) {
+                    this.conter += num;
+                    if (this.app === 'vue.js') {
+                        this.app = 'react.js'
+                    } else {
+                        this.app = 'vue.js'
+                    }
+
+                },
+                handelwords(e) {
+                    console.log(e.key);
+                },
+                logevent(event) {
+                    console.log(event);
+                }
+            },
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

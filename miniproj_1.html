@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>لیست تودو های من</h1>
+
+            <input type="text" placeholder="اضافه کردن " v-model="input">
+            <button class="addBtn" @click="addtodo">اضافه  کردن </button>
+        </div>
+
+
+        <ul>
+
+            <todo-item @checked="item.completed=!item.completed" v-for="(item,index) in todo" :key="item.text" :todo="item" @delitems="delitem(index)"></todo-item>
+
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+                data: () => ({
+                    input: null,
+                    todo: [{
+                        text: 'my learn',
+                        completed: false
+                    }, {
+                        text: 'my list',
+                        completed: false
+                    }, {
+                        text: 'my work',
+                        completed: false
+                    }],
+
+                }),
+                methods: {
+                    more() {
+                        console.log('thois is checked');
+
+                    },
+                    addtodo() {
+                        if (this.input) {
+                            this.todo.push({
+                                text: this.input,
+                                completed: false
+                            });
+                        }
+
+                    },
+                    delitem(index) {
+                        console.log(index);
+                        this.todo.splice(index, 1);
+
+
+                    }
+                },
+            }).component('todo-item', {
+                template: `
+            
+
+            <li  @click="$emit('checked')" :class="{'checked':todo.completed}">{{todo.text}}
+                <button @click=" $emit('delitems')" class="close">X</button>
+            </li>
+
+            `,
+                props: ['todo'],
+
+
+            })
+            .mount('#app')
+    </script>
+</body>
+
+</html>
